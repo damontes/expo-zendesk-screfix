@@ -1,74 +1,104 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Text } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const HomeScreen = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <ScrollView>
+      <View style={styles.headerBackground} />
+      <View style={{ marginTop: 96, paddingHorizontal: 16, marginBottom: 40 }}>
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/logo_white.png')}
+          style={{ width: 120, height: 40, marginHorizontal: 'auto' }}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <View style={styles.searchInput}>
+          <Ionicons size={28} color="white" name="search-outline" style={{ marginRight: 8 }} />
+          <Text style={{ color: 'white', fontSize: 16 }}>What are you looking for?</Text>
+          <Ionicons size={28} color="white" name="camera-outline" style={{ marginLeft: 'auto' }} />
+        </View>
+        <View style={styles.headerCard}>
+          <Ionicons
+            size={36}
+            color="blue"
+            name="alert-circle-outline"
+            style={{ marginRight: 12 }}
+          />
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{
+                fontWeight: 700,
+                fontSize: 24,
+                textTransform: 'uppercase',
+              }}
+            >
+              Apple pay & google pay is here!
+            </Text>
+            <Text style={{ fontSize: 18 }}>Fint out more</Text>
+          </View>
+        </View>
+        <View style={{ paddingTop: 24, paddingHorizontal: 12 }}>
+          <Text
+            style={{ fontSize: 24, color: '#1c4991', fontWeight: 800, textTransform: 'uppercase' }}
+          >
+            Hi AARON,
+          </Text>
+          <Text
+            style={{ fontSize: 40, color: '#152c56', fontWeight: 900, textTransform: 'uppercase' }}
+          >
+            Welcome back
+          </Text>
+        </View>
+        <View>
+          <View style={{ elevation: 2, borderRadius: 20, overflow: 'hidden', marginVertical: 24 }}>
+            <Image
+              source={{
+                uri: 'https://media.screwfix.com/is/image/ae235/Screwfix_sprint_5_pound_fw_lp_image_banner_sm?wid=634&hei=542&dpr=on',
+              }}
+              style={{ height: 'auto', width: '100%', aspectRatio: '16 / 9' }}
+            />
+          </View>
+          <View style={{ elevation: 2, borderRadius: 20, overflow: 'hidden', marginVertical: 24 }}>
+            <Image
+              source={{
+                uri: 'https://media.screwfix.ie/is/image/ae235/winter3_pricedrop_fw_generic_img_banner_sm?wid=634&hei=592&dpr=on',
+              }}
+              style={{ height: 'auto', width: '100%', aspectRatio: '1 /1 ' }}
+            />
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  headerBackground: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    alignItems: 'center',
+    height: 240,
+    backgroundColor: '#1c4991',
+  },
+  searchInput: {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    borderRadius: 50,
+    backgroundColor: '#152c56',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    width: '100%',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  headerCard: {
+    elevation: 2,
+    backgroundColor: 'white',
+    borderRadius: 16,
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
 });
+
+export default HomeScreen;
