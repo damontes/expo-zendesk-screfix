@@ -1,66 +1,87 @@
-import { View, StyleSheet, ScrollView, Image, Text } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { View, StyleSheet, ScrollView, Image, Text, Pressable } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useAuthentication } from '@/hooks/useAuthentication';
+import { useRouter } from 'expo-router';
+import MaterialIcon from '@expo/vector-icons/MaterialIcons';
+
+const HORIZONATAL_LIST = ['My Recipients', 'My Transactions', 'My Cards', 'My Offers'];
 
 const HomeScreen = () => {
+  const { isAuthenticated } = useAuthentication();
+  const router = useRouter();
+
   return (
-    <ScrollView>
-      <View style={styles.headerBackground} />
-      <View style={{ marginTop: 96, paddingHorizontal: 16, marginBottom: 40 }}>
+    <ScrollView style={{ backgroundColor: '#222222' }}>
+      <View style={styles.headerBackground}>
         <Image
           source={require('@/assets/images/logo_white.png')}
-          style={{ width: 120, height: 40, marginHorizontal: 'auto' }}
+          style={{ width: 140, height: 80, marginHorizontal: 'auto' }}
         />
-        <View style={styles.searchInput}>
-          <Ionicons size={28} color="white" name="search-outline" style={{ marginRight: 8 }} />
-          <Text style={{ color: 'white', fontSize: 16 }}>What are you looking for?</Text>
-          <Ionicons size={28} color="white" name="camera-outline" style={{ marginLeft: 'auto' }} />
+        <Pressable
+          style={{ position: 'absolute', right: 16, top: 28 }}
+          onPress={() => router.push('/login')}
+        >
+          <MaterialIcon name={isAuthenticated ? 'logout' : 'login'} size={30} color="white" />"
+        </Pressable>
+      </View>
+      <ScrollView
+        style={{
+          paddingBottom: 24,
+          paddingTop: 16,
+          paddingHorizontal: 16,
+        }}
+        contentContainerStyle={{ alignItems: 'center' }}
+        horizontal
+      >
+        <View style={styles.plusButton}>
+          <MaterialIcons name="add" size={24} color="white" />
         </View>
-        <View style={styles.headerCard}>
-          <Ionicons
-            size={36}
-            color="blue"
-            name="alert-circle-outline"
-            style={{ marginRight: 12 }}
-          />
-          <View style={{ flex: 1 }}>
+        {HORIZONATAL_LIST.map((item, idx) => (
+          <View key={idx} style={styles.tag}>
             <Text
               style={{
-                fontWeight: 700,
-                fontSize: 24,
-                textTransform: 'uppercase',
+                fontSize: 14,
+                color: 'white',
+                fontWeight: '400',
+                fontFamily: 'Madera',
               }}
             >
-              Apple pay & google pay is here!
+              {item}
             </Text>
-            <Text style={{ fontSize: 18 }}>Fint out more</Text>
           </View>
-        </View>
-        <View style={{ paddingTop: 24, paddingHorizontal: 12 }}>
-          <Text
-            style={{ fontSize: 24, color: '#1c4991', fontWeight: 800, textTransform: 'uppercase' }}
-          >
-            Hi AARON,
-          </Text>
-          <Text
-            style={{ fontSize: 40, color: '#152c56', fontWeight: 900, textTransform: 'uppercase' }}
-          >
-            Welcome back
-          </Text>
-        </View>
+        ))}
+      </ScrollView>
+      <View style={{ paddingHorizontal: 8, marginBottom: 40 }}>
+        <Text
+          style={{
+            fontWeight: 700,
+            fontSize: 24,
+            fontFamily: 'Madera',
+            color: 'white',
+            paddingHorizontal: 8,
+          }}
+        >
+          Hi Daniel
+        </Text>
+
         <View>
-          <View style={{ elevation: 2, borderRadius: 20, overflow: 'hidden', marginVertical: 24 }}>
+          <View>
             <Image
-              source={{
-                uri: 'https://media.screwfix.com/is/image/ae235/Screwfix_sprint_5_pound_fw_lp_image_banner_sm?wid=634&hei=542&dpr=on',
-              }}
-              style={{ height: 'auto', width: '100%', aspectRatio: '16 / 9' }}
+              source={require('@/assets/images/home_first_card.png')}
+              style={{ height: 'auto', width: '100%', aspectRatio: '16 / 9', objectFit: 'contain' }}
             />
           </View>
-          <View style={{ elevation: 2, borderRadius: 20, overflow: 'hidden', marginVertical: 24 }}>
+          <View
+            style={{
+              elevation: 2,
+              borderRadius: 20,
+              overflow: 'hidden',
+              marginHorizontal: 8,
+              marginTop: -12,
+            }}
+          >
             <Image
-              source={{
-                uri: 'https://media.screwfix.ie/is/image/ae235/winter3_pricedrop_fw_generic_img_banner_sm?wid=634&hei=592&dpr=on',
-              }}
+              source={require('@/assets/images/home_second_card.png')}
               style={{ height: 'auto', width: '100%', aspectRatio: '1 /1 ' }}
             />
           </View>
@@ -72,29 +93,38 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   headerBackground: {
-    position: 'absolute',
-    top: 0,
     width: '100%',
     alignItems: 'center',
-    height: 240,
-    backgroundColor: '#1c4991',
+    marginTop: 36,
+    elevation: 1,
+    position: 'relative',
   },
-  searchInput: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+  plusButton: {
+    borderColor: '#aaa',
+    borderWidth: 1,
     borderRadius: 50,
-    backgroundColor: '#152c56',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    width: '100%',
+    width: 40,
+    height: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tag: {
+    backgroundColor: '#3e3e3e',
+    paddingHorizontal: 24,
+    borderRadius: 25,
+    borderColor: '#aaa',
+    borderWidth: 1,
+    marginLeft: 12,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
   },
   headerCard: {
     elevation: 2,
     backgroundColor: 'white',
     borderRadius: 16,
-    display: 'flex',
-    flexDirection: 'row',
     marginTop: 20,
     paddingVertical: 12,
     paddingHorizontal: 16,

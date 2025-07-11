@@ -1,64 +1,61 @@
-import { HapticTab } from '@/app/components/HapticTab';
+import { HapticTab } from '@/components/HapticTab';
 import { Tabs } from 'expo-router';
-import { Image, Platform } from 'react-native';
-import TabBarBackground from '@/app/components/ui/TabBarBackground';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import TabBarBackground from '@/components/ui/TabBarBackground';
+import MaterialIcon from '@expo/vector-icons/MaterialIcons';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#0a7ea4',
+        tabBarActiveTintColor: '#f05423',
+        tabBarInactiveTintColor: 'white',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarStyle: {
+          backgroundColor: '#222222',
+          height: 70,
+          borderTopWidth: 1,
+        },
+        tabBarLabelStyle: {
+          marginTop: 10,
+          fontFamily: 'Madera',
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ focused }) => (
-            <Image
-              style={[{ height: 40, width: 40 }, focused ? {} : { tintColor: 'gray' }]}
-              source={require('@/assets/images/logo.png')}
-            />
-          ),
+          tabBarIcon: ({ color }) => <MaterialIcon size={30} name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="browse"
         options={{
-          title: 'Browse',
-          tabBarIcon: ({ color }) => <Ionicons size={24} name="search-outline" color={color} />,
+          title: 'Recipients',
+          tabBarIcon: ({ color }) => <MaterialIcon size={30} name="people-outline" color={color} />,
         }}
       />
       <Tabs.Screen
         name="orders"
         options={{
-          title: 'My orders',
-          tabBarIcon: ({ color }) => <Ionicons size={24} name="book-outline" color={color} />,
+          title: 'Send',
+          tabBarIcon: ({ color }) => <MaterialIcon size={30} name="rocket-launch" color={color} />,
         }}
       />
       <Tabs.Screen
         name="basket"
         options={{
-          title: 'My orders',
-          tabBarIcon: ({ color }) => <Ionicons size={24} name="cart-outline" color={color} />,
+          title: 'Transactions',
+          tabBarIcon: ({ color }) => <MaterialIcon size={30} name="receipt-long" color={color} />,
         }}
       />
       <Tabs.Screen
         name="more"
         options={{
-          title: 'My orders',
-          tabBarIcon: ({ color }) => <Ionicons size={24} name="ellipsis-vertical" color={color} />,
+          title: 'More',
+          tabBarIcon: ({ color }) => <MaterialIcon size={30} name="apps" color={color} />,
         }}
       />
     </Tabs>
